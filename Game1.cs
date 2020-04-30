@@ -33,7 +33,9 @@ namespace GP01Week6Lab1
         private int[,] oneEat = new int[10, 3] { { 0, 0 , 0 }, { 0, 0,0 }, {0, 0,0 }, { 0, 0,0 },
                                                  { 0, 0 ,0}, { 0, 0 ,0}, { 0,0 ,0}, { 0,0 ,0},
                                                  { 0, 0 ,0}, { 0, 0,0 } };
+
         private int gameSpeed = 20; 
+
         private static String[] names = { "osid", "jan", "mehmet", "ahmet", "sawsan", "fadi", "hadi", "raad", "wessam", "laith" };
         SpriteFont font;
         private Viewport leftViewport;
@@ -41,27 +43,32 @@ namespace GP01Week6Lab1
         IList<string> strList = new List<string>();
         IList<string> TheyEatAlready = new List<string>();
         private bool flag = true;
+
         private bool flagForRandomWaitting = true;
         private bool flagForRandomDestination = true;
         private bool flagForListAdd = true;
         private bool doesEveryOneGetFood = false;
 
         private int maxborek = 3;
+        private int minborek = 1;
         private int borek = 25;//25
         private bool isBorekDishHere = true;
         private int borekOnDish = 5;//5
 
         private int maxcake = 1;
+        private int mincake = 1;
         private int cake = 10;//10
         private bool isCakeDishHere = true;
         private int cakeOnDish = 5;//5
 
         private int maxdrink = 3;
+        private int mindrink = 3;
         private int drink = 25 ;//25
         private bool isThereAnyDrinkOnTable = true;
         private int drinkOnTable = 5;//5
 
         private bool isTheGameEnded = false; 
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -117,17 +124,7 @@ namespace GP01Week6Lab1
 
 
 
-
-
-
         // ***********************   update function  *********************************
-
-
-
-       
-
-
-
 
 
 
@@ -148,7 +145,7 @@ namespace GP01Week6Lab1
             {
                 gameSpeed = gameSpeed + 5;
             }
-            Console.WriteLine(gameSpeed);
+          
 
             // TODO: Add your update logic here
 
@@ -233,6 +230,10 @@ namespace GP01Week6Lab1
                     maxborek = 5;
                     maxcake = 2;
                     maxdrink = 5;
+                    mindrink = 0;
+                    minborek = 0;
+                    mincake = 0;
+                    
                     Thread.Sleep(100);
                     break;
                 }
@@ -558,83 +559,145 @@ namespace GP01Week6Lab1
 
             while (true)
             {
-                cakeToEat = RandomNumber(0, maxcake + 1);
-                borekToEat = RandomNumber(0, maxborek + 1);
-                drinkToDrink = RandomNumber(0, maxdrink + 1);
+                cakeToEat = RandomNumber(mincake, maxcake + 1);
+                borekToEat = RandomNumber(minborek, maxborek + 1);
+                drinkToDrink = RandomNumber(mindrink, maxdrink + 1);
 
                 if (cakeToEat != 0 && borekToEat != 0 && drinkToDrink != 0)
                     break;
 
                
             }
-            
-         
-            if (isBorekDishHere && borekOnDish >= borekToEat)
+
+            while (true)
             {
-                isBorekDishHere = false; 
-                borekOnDish = borekOnDish - borekToEat;
-                Thread.Sleep(100);
-                isBorekDishHere = true;
-            }
-            else if(isBorekDishHere && borekOnDish < borekToEat && borekOnDish != 0)
-            {
-                borekToEat = borekOnDish;
-                isBorekDishHere = false;
-                borekOnDish = 0 ;
-                Thread.Sleep(100);
-                isBorekDishHere = true;
-            }
-            else if(borekOnDish == 0)
-            {
-                borekToEat = 0;
-            }
-            
-            if (isThereAnyDrinkOnTable && drinkOnTable >= drinkToDrink)
-            {
-                isThereAnyDrinkOnTable = false;
-                drinkOnTable = drinkOnTable - drinkToDrink;
-                Thread.Sleep(100);
-                isThereAnyDrinkOnTable = true;
-            }
-            else if (isThereAnyDrinkOnTable && drinkOnTable < drinkToDrink && drinkOnTable != 0)
-            {
-                drinkToDrink = drinkOnTable;
-                isThereAnyDrinkOnTable = false;
-                drinkOnTable = 0;
-                Thread.Sleep(100);
-                isThereAnyDrinkOnTable = true;
-            }
-            else if (drinkOnTable == 0)
-            {
-                drinkToDrink = 0;
+                if (isBorekDishHere && borekOnDish >= borekToEat)
+                {
+                    isBorekDishHere = false;
+                    borekOnDish = borekOnDish - borekToEat;
+                    Thread.Sleep(100);
+                    isBorekDishHere = true;
+                    break;
+                }
+                else if (isBorekDishHere && borekOnDish < borekToEat && borekOnDish != 0)
+                {
+                    borekToEat = borekOnDish;
+                    isBorekDishHere = false;
+                    borekOnDish = 0;
+                    Thread.Sleep(100);
+                    isBorekDishHere = true;
+                    break;
+                }
+                else if (!isBorekDishHere)
+                {
+                    Thread.Sleep(20);
+                }
+                else if (borekOnDish == 0)
+                {
+                    Thread.Sleep(30);
+                    if(borekOnDish == 0)
+                    {
+                        borekToEat = 0;
+                    }
+                    else
+                    {
+                        borekOnDish = borekOnDish - borekToEat;
+                    }
+                   
+
+                    break;
+                }
+
             }
 
-            if (isCakeDishHere && cakeOnDish >= cakeToEat)
+            while (true)
             {
-                isCakeDishHere = false;
-                cakeOnDish = cakeOnDish - cakeToEat;
-                Thread.Sleep(100);
-                isCakeDishHere = true;
+                if (isThereAnyDrinkOnTable && drinkOnTable >= drinkToDrink)
+                {
+                    isThereAnyDrinkOnTable = false;
+                    drinkOnTable = drinkOnTable - drinkToDrink;
+                    Thread.Sleep(100);
+                    isThereAnyDrinkOnTable = true;
+                    break;
+                }
+                else if (isThereAnyDrinkOnTable && drinkOnTable < drinkToDrink && drinkOnTable != 0)
+                {
+                    drinkToDrink = drinkOnTable;
+                    isThereAnyDrinkOnTable = false;
+                    drinkOnTable = 0;
+                    Thread.Sleep(100);
+                    isThereAnyDrinkOnTable = true;
+                    break;
+                }
+                else if (!isThereAnyDrinkOnTable)
+                {
+                    Thread.Sleep(20);
+                }
+                else if (drinkOnTable == 0)
+                {
+                    Thread.Sleep(30);
+                    if (drinkOnTable == 0)
+                    {
+                        drinkToDrink = 0;
+                    }
+                    else
+                    {
+                        drinkOnTable = drinkOnTable - drinkToDrink;
+                    }
+
+
+                    break;
+                }
+
             }
-            else if (isCakeDishHere && cakeOnDish < cakeToEat && cakeOnDish != 0)
+
+            while (true)
             {
-                cakeToEat = cakeOnDish;
-                isCakeDishHere = false;
-                cakeOnDish = 0;
-                Thread.Sleep(100);
-                isCakeDishHere = true;
+                if (isCakeDishHere && cakeOnDish >= cakeToEat)
+                {
+                    isCakeDishHere = false;
+                    cakeOnDish = cakeOnDish - cakeToEat;
+                    Thread.Sleep(100);
+                    isCakeDishHere = true;
+                    break;
+                }
+                else if (isCakeDishHere && cakeOnDish < cakeToEat && cakeOnDish != 0)
+                {
+                    cakeToEat = cakeOnDish;
+                    isCakeDishHere = false;
+                    cakeOnDish = 0;
+                    Thread.Sleep(100);
+                    isCakeDishHere = true;
+                    break;
+                }
+                else if (!isCakeDishHere)
+                {
+                    Thread.Sleep(20);
+                }
+                else if (cakeOnDish == 0)
+                {
+                    Thread.Sleep(30);
+                    if (cakeOnDish == 0)
+                    {
+                        cakeToEat = 0;
+                    }
+                    else
+                    {
+                        cakeOnDish = cakeOnDish - cakeToEat;
+                    }
+
+
+                    break;
+                }
             }
-            else if (cakeOnDish == 0)
-            {
-                cakeToEat = 0;
-            }
+           
 
             TheyEatAlready.Add(names[index]);
 
-            oneEat[index, 0] = cakeToEat;
-            oneEat[index, 1] = drinkToDrink;
-            oneEat[index, 2] = borekToEat;
-
+            oneEat[index, 0] = oneEat[index, 0] + cakeToEat;
+            oneEat[index, 1] = oneEat[index, 1] + drinkToDrink;
+            oneEat[index, 2] = oneEat[index, 2] + borekToEat;
+            Console.WriteLine(cakeToEat + "  " + drinkToDrink + "  " + borekToEat);
 
 
         }
@@ -1020,10 +1083,6 @@ namespace GP01Week6Lab1
         }
 
 
-        protected void drowingTheFinalResults()
-        {
-           
-        }
 
 
 

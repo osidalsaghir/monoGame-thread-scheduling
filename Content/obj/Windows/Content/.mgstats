@@ -1,0 +1,8 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/OSID/Desktop/MonoGame/win/Content/Asset 1@4x-8.png","C:/Users/OSID/Desktop/MonoGame/win/Content/bin/Windows/Content/disco.xnb","TextureProcessor","Texture2DContent",99087,4502969,0.32513
+"C:/Users/OSID/Desktop/MonoGame/win/Content/dish.png","C:/Users/OSID/Desktop/MonoGame/win/Content/bin/Windows/Content/dish.xnb","TextureProcessor","Texture2DContent",22624,1048661,0.1236955
+"C:/Users/OSID/Desktop/MonoGame/win/Content/File.spritefont","C:/Users/OSID/Desktop/MonoGame/win/Content/bin/Windows/Content/File.xnb","FontDescriptionProcessor","SpriteFontContent",2008,21521,0.2353722
+"C:/Users/OSID/Desktop/MonoGame/win/Content/floor.jpg","C:/Users/OSID/Desktop/MonoGame/win/Content/bin/Windows/Content/floor.xnb","TextureProcessor","Texture2DContent",232986,1119989,0.3913743
+"C:/Users/OSID/Desktop/MonoGame/win/Content/frame.png","C:/Users/OSID/Desktop/MonoGame/win/Content/bin/Windows/Content/frame.xnb","TextureProcessor","Texture2DContent",60654,819285,0.114693
+"C:/Users/OSID/Desktop/MonoGame/win/Content/player.png","C:/Users/OSID/Desktop/MonoGame/win/Content/bin/Windows/Content/player.xnb","TextureProcessor","Texture2DContent",327183,2198485,0.1698236
+"C:/Users/OSID/Desktop/MonoGame/win/Content/waitress.png","C:/Users/OSID/Desktop/MonoGame/win/Content/bin/Windows/Content/waitress.xnb","TextureProcessor","Texture2DContent",26763,1048661,0.2992696

@@ -30,7 +30,10 @@ namespace GP01Week6Lab1
         private int[,] directions = new int[10, 2] { { 0, 0 }, { 0, 0 }, {0, 0 }, { 0, 0 },
                                                  { 0, 0 }, { 0, 0 }, { 0,0 }, { 0,0 },
                                                  { 0, 0 }, { 0, 0 } };
-        
+        private int[,] oneEat = new int[10, 3] { { 0, 0 , 0 }, { 0, 0,0 }, {0, 0,0 }, { 0, 0,0 },
+                                                 { 0, 0 ,0}, { 0, 0 ,0}, { 0,0 ,0}, { 0,0 ,0},
+                                                 { 0, 0 ,0}, { 0, 0,0 } };
+        private int gameSpeed = 20; 
         private static String[] names = { "osid", "jan", "mehmet", "ahmet", "sawsan", "fadi", "hadi", "raad", "wessam", "laith" };
         SpriteFont font;
         private Viewport leftViewport;
@@ -44,19 +47,21 @@ namespace GP01Week6Lab1
         private bool doesEveryOneGetFood = false;
 
         private int maxborek = 3;
-        private int borek = 25;
+        private int borek = 25;//25
         private bool isBorekDishHere = true;
-        private int borekOnDish = 5;
+        private int borekOnDish = 5;//5
 
         private int maxcake = 1;
-        private int cake = 10;
+        private int cake = 10;//10
         private bool isCakeDishHere = true;
-        private int cakeOnDish = 5;
+        private int cakeOnDish = 5;//5
 
         private int maxdrink = 3;
-        private int drink = 25 ;
+        private int drink = 25 ;//25
         private bool isThereAnyDrinkOnTable = true;
-        private int drinkOnTable = 5;
+        private int drinkOnTable = 5;//5
+
+        private bool isTheGameEnded = false; 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -135,6 +140,15 @@ namespace GP01Week6Lab1
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.Right) && gameSpeed >5)
+            {
+                gameSpeed = gameSpeed - 5;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Left) && gameSpeed < 150)
+            {
+                gameSpeed = gameSpeed + 5;
+            }
+            Console.WriteLine(gameSpeed);
 
             // TODO: Add your update logic here
 
@@ -147,41 +161,61 @@ namespace GP01Week6Lab1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>  ************************ draw function ******** for drowing the images *****
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.White);
-            graphics.GraphicsDevice.Viewport = leftViewport;
-
-            spriteBatch.Begin();
-            staticDraw();
-            spriteBatch.End();
-            for (int i = 0; i < 10; i++)
+            if (!isTheGameEnded)
             {
-                
-            spriteBatch.Begin();
-            spriteBatch.DrawString(font , names[i], new Vector2(xyArray[i, 0], xyArray[i, 1] - 15),Color.Black) ; 
-            spriteBatch.Draw(player, new Rectangle(xyArray[i, 0], xyArray[i, 1], 45, 45), Color.White);
-            spriteBatch.End();
-            }
-            graphics.GraphicsDevice.Viewport = rightViewport;
+                GraphicsDevice.Clear(Color.White);
+                graphics.GraphicsDevice.Viewport = leftViewport;
 
-            int xxais = 5;
-            int yaxis = 0;
-            if (flagForListAdd)
-            {
-                flagForListAdd = false;
-                foreach (string console in strList)
+                spriteBatch.Begin();
+                staticDraw();
+                spriteBatch.End();
+                for (int i = 0; i < 10; i++)
                 {
+
                     spriteBatch.Begin();
-                    spriteBatch.DrawString(font, console, new Vector2(xxais, yaxis), Color.Black);
+                    spriteBatch.DrawString(font, names[i], new Vector2(xyArray[i, 0], xyArray[i, 1] - 15), Color.Black);
+                    spriteBatch.Draw(player, new Rectangle(xyArray[i, 0], xyArray[i, 1], 45, 45), Color.White);
                     spriteBatch.End();
-                    yaxis = yaxis + 15;
                 }
-                
-                flagForListAdd = true;
+                graphics.GraphicsDevice.Viewport = rightViewport;
+
+                int xxais = 5;
+                int yaxis = 0;
+                if (flagForListAdd)
+                {
+                    flagForListAdd = false;
+                    foreach (string console in strList)
+                    {
+                        spriteBatch.Begin();
+                        spriteBatch.DrawString(font, console, new Vector2(xxais, yaxis), Color.Black);
+                        spriteBatch.End();
+                        yaxis = yaxis + 15;
+                    }
+
+                    flagForListAdd = true;
+
+                }
+
 
             }
-            
+            else
+            {
+                GraphicsDevice.Clear(Color.White);
+                graphics.GraphicsDevice.Viewport = leftViewport;
+                spriteBatch.Begin();
+                spriteBatch.DrawString(font, "The End", new Vector2(150, 150), Color.Black);
+                
+                int x = 50;
+                int y = 150; 
+                for(int i = 0; i < 10; i++)
+                {
+                    y = y + 30;
+                    spriteBatch.DrawString(font, names[i]+ "   Number of Cake : " + oneEat[i,0]+ "   Number of Drink: " + oneEat[i, 1] + "  Number of Borek:  " + oneEat[i, 2] , new Vector2(x, y), Color.Black);
 
+                }
+                spriteBatch.End();
 
+            }
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
@@ -189,6 +223,7 @@ namespace GP01Week6Lab1
 
         protected void control()
         {
+           
             while (true)
             {
                 if(TheyEatAlready.Count == 10)
@@ -199,6 +234,15 @@ namespace GP01Week6Lab1
                     maxcake = 2;
                     maxdrink = 5;
                     Thread.Sleep(100);
+                    break;
+                }
+            }
+            while (true)
+            {
+                if (borek == 0 && drink == 0 && cake == 0 && cakeOnDish == 0 && drinkOnTable == 0 && borekOnDish == 0)
+                {
+                    Console.WriteLine("heree");
+                    isTheGameEnded = true;
                     break;
                 }
             }
@@ -505,7 +549,7 @@ namespace GP01Week6Lab1
                 {
                     break;
                 }
-                Thread.Sleep(10);
+                Thread.Sleep(gameSpeed);
             }
 
             int cakeToEat = 0;
@@ -524,9 +568,7 @@ namespace GP01Week6Lab1
                
             }
             
-            Console.WriteLine(names[index] + " borek : " + borekToEat);
-            Console.WriteLine(names[index] + " drink :  " + drinkToDrink);
-            Console.WriteLine(names[index] + " cake :  " + cakeToEat);
+         
             if (isBorekDishHere && borekOnDish >= borekToEat)
             {
                 isBorekDishHere = false; 
@@ -542,7 +584,11 @@ namespace GP01Week6Lab1
                 Thread.Sleep(100);
                 isBorekDishHere = true;
             }
-            Console.WriteLine(names[index] + " but he eats borek" + borekToEat);
+            else if(borekOnDish == 0)
+            {
+                borekToEat = 0;
+            }
+            
             if (isThereAnyDrinkOnTable && drinkOnTable >= drinkToDrink)
             {
                 isThereAnyDrinkOnTable = false;
@@ -558,7 +604,11 @@ namespace GP01Week6Lab1
                 Thread.Sleep(100);
                 isThereAnyDrinkOnTable = true;
             }
-            Console.WriteLine(names[index] + " but he drinks" + drinkToDrink);
+            else if (drinkOnTable == 0)
+            {
+                drinkToDrink = 0;
+            }
+
             if (isCakeDishHere && cakeOnDish >= cakeToEat)
             {
                 isCakeDishHere = false;
@@ -574,9 +624,16 @@ namespace GP01Week6Lab1
                 Thread.Sleep(100);
                 isCakeDishHere = true;
             }
-            Console.WriteLine(names[index] + " but he eats cake" + cakeToEat);
+            else if (cakeOnDish == 0)
+            {
+                cakeToEat = 0;
+            }
+
             TheyEatAlready.Add(names[index]);
 
+            oneEat[index, 0] = cakeToEat;
+            oneEat[index, 1] = drinkToDrink;
+            oneEat[index, 2] = borekToEat;
 
 
 
@@ -677,7 +734,7 @@ namespace GP01Week6Lab1
                 {
                     break;
                 }
-                Thread.Sleep(10);
+                Thread.Sleep(gameSpeed);
             }
 
          
@@ -750,7 +807,7 @@ namespace GP01Week6Lab1
                 {
                     break;
                 }
-                Thread.Sleep(10);
+                Thread.Sleep(gameSpeed);
             }
             Thread.Sleep(randomTime);
         }
@@ -816,7 +873,7 @@ namespace GP01Week6Lab1
                     {
                         break;
                     }
-                    Thread.Sleep(10);
+                    Thread.Sleep(gameSpeed);
                 }
             }
        

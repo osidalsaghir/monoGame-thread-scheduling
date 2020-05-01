@@ -353,6 +353,10 @@ namespace GP01Week6Lab1
             Thread.Sleep(rendomTime);
             while (true)
             {
+                if (isTheGameEnded)
+                {
+                    break;
+                }
                 int rendom;
 
                 while (true)
@@ -439,10 +443,7 @@ namespace GP01Week6Lab1
                    
                 }
                 lastVisit = rendom;
-                if (isTheGameEnded)
-                {
-                    break;
-                }
+               
             }
           
 
@@ -573,10 +574,20 @@ namespace GP01Week6Lab1
                 cakeToEat = RandomNumber(mincake, (maxcake - oneEat[index, 0]) + 1);
                 borekToEat = RandomNumber(minborek, (maxborek - oneEat[index, 2] ) + 1 );
                 drinkToDrink = RandomNumber(mindrink, (maxdrink - oneEat[index, 1]) +1 );
-
+                Console.WriteLine("hereeeeeee");
+                Console.WriteLine(cakeToEat);
+                Console.WriteLine(borekToEat);
+                Console.WriteLine(drinkToDrink);
                 Console.WriteLine((maxcake  - (oneEat[index, 0]) ) + "  " + (maxdrink  - (oneEat[index, 1])) +"  "+ (maxborek - (oneEat[index, 2])) + "  ");
-                if (cakeToEat != 0 && borekToEat != 0 && drinkToDrink != 0)
+                if (cakeToEat == 0 && borekToEat == 0 && drinkToDrink == 0)
+                {
+
+                }
+                else
+                {
                     break;
+                }
+                    
 
                
             }

@@ -398,6 +398,7 @@ namespace GP01Week6Lab1
                                 else
                                 {
                                     goingToBufe(xyArray[index, 0], xyArray[index, 1], index);
+                                    
                                 }
                                 
                             }
@@ -409,18 +410,21 @@ namespace GP01Week6Lab1
                         if (lastVisit != 2)
                         {
                             goingTodesco(xyArray[index, 0], xyArray[index, 1], index);
+                            
                         }
                         break;
                     case 3:
                         if (lastVisit != 3)
                         {
                             getingConvesationWithFreinds(xyArray[index, 0], xyArray[index, 1], index);
+                            
                         }
                         break;
                     case 4:
                         if (lastVisit != 4)
                         {
                             playingPlayStation(xyArray[index, 0], xyArray[index, 1], index);
+                            
                         }
 
                         break;
@@ -443,7 +447,8 @@ namespace GP01Week6Lab1
                    
                 }
                 lastVisit = rendom;
-               
+
+
             }
           
 
@@ -576,8 +581,9 @@ namespace GP01Week6Lab1
                 drinkToDrink = RandomNumber(mindrink, (maxdrink - oneEat[index, 1]) +1 );
                 Console.WriteLine("hereeeeeee");
                 Console.WriteLine(cakeToEat);
-                Console.WriteLine(borekToEat);
                 Console.WriteLine(drinkToDrink);
+                Console.WriteLine(borekToEat);
+                
                 Console.WriteLine((maxcake  - (oneEat[index, 0]) ) + "  " + (maxdrink  - (oneEat[index, 1])) +"  "+ (maxborek - (oneEat[index, 2])) + "  ");
                 if (cakeToEat == 0 && borekToEat == 0 && drinkToDrink == 0)
                 {

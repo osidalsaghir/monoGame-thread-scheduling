@@ -141,7 +141,7 @@ namespace GP01Week6Lab1
             {
                 gameSpeed = gameSpeed - 5;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Left) && gameSpeed < 150)
+            if (Keyboard.GetState().IsKeyDown(Keys.Left) && gameSpeed < 400)
             {
                 gameSpeed = gameSpeed + 5;
             }

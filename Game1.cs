@@ -361,7 +361,7 @@ namespace GP01Week6Lab1
                     if (flagForRandomDestination)
                     {
                         flagForRandomDestination = false;
-                        rendom = RandomNumber(1, 5);
+                        rendom = RandomNumber(1, 3);
                         Thread.Sleep(100);
                         flagForRandomDestination = true;
                         break;
@@ -387,7 +387,15 @@ namespace GP01Week6Lab1
                         {
                             if (doesEveryOneGetFood)
                             {
-                                goingToBufe(xyArray[index, 0], xyArray[index, 1], index);
+                                if (oneEat[index, 0] == maxcake && oneEat[index, 1] == maxdrink && oneEat[index, 2] == maxborek )
+                                {
+                                    // dont go to the bufe because you eat enough
+                                }
+                                else
+                                {
+                                    goingToBufe(xyArray[index, 0], xyArray[index, 1], index);
+                                }
+                                
                             }
                                     
                         }
@@ -430,8 +438,11 @@ namespace GP01Week6Lab1
                     
                    
                 }
-                lastVisit = rendom; 
-
+                lastVisit = rendom;
+                if (isTheGameEnded)
+                {
+                    break;
+                }
             }
           
 
@@ -559,10 +570,11 @@ namespace GP01Week6Lab1
 
             while (true)
             {
-                cakeToEat = RandomNumber(mincake, maxcake + 1);
-                borekToEat = RandomNumber(minborek, maxborek + 1);
-                drinkToDrink = RandomNumber(mindrink, maxdrink + 1);
+                cakeToEat = RandomNumber(mincake, (maxcake - oneEat[index, 0]) + 1);
+                borekToEat = RandomNumber(minborek, (maxborek - oneEat[index, 2] ) + 1 );
+                drinkToDrink = RandomNumber(mindrink, (maxdrink - oneEat[index, 1]) +1 );
 
+                Console.WriteLine((maxcake  - (oneEat[index, 0]) ) + "  " + (maxdrink  - (oneEat[index, 1])) +"  "+ (maxborek - (oneEat[index, 2])) + "  ");
                 if (cakeToEat != 0 && borekToEat != 0 && drinkToDrink != 0)
                     break;
 
@@ -697,6 +709,7 @@ namespace GP01Week6Lab1
             oneEat[index, 0] = oneEat[index, 0] + cakeToEat;
             oneEat[index, 1] = oneEat[index, 1] + drinkToDrink;
             oneEat[index, 2] = oneEat[index, 2] + borekToEat;
+            Console.WriteLine("then he eats :   ");
             Console.WriteLine(cakeToEat + "  " + drinkToDrink + "  " + borekToEat);
 
 

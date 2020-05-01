@@ -200,7 +200,7 @@ namespace GP01Week6Lab1
                 GraphicsDevice.Clear(Color.White);
                 graphics.GraphicsDevice.Viewport = leftViewport;
                 spriteBatch.Begin();
-                spriteBatch.DrawString(font, "The End", new Vector2(150, 150), Color.Black);
+                spriteBatch.DrawString(font, "The End", new Vector2(150, 150), Color.Red);
                 
                 int x = 50;
                 int y = 150; 
@@ -728,7 +728,32 @@ namespace GP01Week6Lab1
             oneEat[index, 2] = oneEat[index, 2] + borekToEat;
             Console.WriteLine("then he eats :   ");
             Console.WriteLine(cakeToEat + "  " + drinkToDrink + "  " + borekToEat);
+            while (true)
+            {
+                printString = names[index] +" gets "  + cakeToEat+ " of cake and "+borekToEat+" of borek and" + drinkToDrink + " of drink";
+                if (flagForListAdd)
+                {
 
+                    flagForListAdd = false;
+                    Thread.Sleep(100);
+                    if (strList.Count == 6)
+                    {
+                        strList.RemoveAt(0);
+
+                    }
+
+                    strList.Add(printString);
+                    Thread.Sleep(100);
+                    flagForListAdd = true;
+                    break;
+                }
+                else
+                {
+                    Thread.Sleep(100);
+                }
+
+
+            }
 
         }
 

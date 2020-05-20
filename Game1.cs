@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VisioForge.Shared.Helpers;
 
-namespace GP01Week6Lab1
+namespace threadscheduling
 {
 
     public class Game1 : Game
@@ -81,7 +81,7 @@ namespace GP01Week6Lab1
       
         protected override void Initialize()
         {
- 
+            Window.Title = "Thread Scheduling";
 
             base.Initialize();
             leftViewport = new Viewport();
@@ -326,12 +326,6 @@ namespace GP01Week6Lab1
 
         protected void theBrain(int index)
         {
-            
-
-            
-
-
-
             int lastVisit = 0;
             int rendomTime;
             while (true)
@@ -443,11 +437,9 @@ namespace GP01Week6Lab1
                     {
                         Thread.Sleep(100);
                     }
-                    
-                   
+
                 }
                 lastVisit = rendom;
-
 
             }
           
@@ -493,13 +485,10 @@ namespace GP01Week6Lab1
                     }
                     else
                     {
-
                         isThereAlreadyOne = false;
                         flag = true;
                         return;
                     }
-
-
                 }
                 else
                 {
@@ -730,7 +719,7 @@ namespace GP01Week6Lab1
             Console.WriteLine(cakeToEat + "  " + drinkToDrink + "  " + borekToEat);
             while (true)
             {
-                printString = names[index] +" gets "  + cakeToEat+ " of cake and "+borekToEat+" of borek and" + drinkToDrink + " of drink";
+                printString = names[index] +" gets "  + cakeToEat+ " of cake and "+borekToEat+" of borek and " + drinkToDrink + " of drink";
                 if (flagForListAdd)
                 {
 

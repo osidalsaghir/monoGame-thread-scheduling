@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GP01Week6Lab1
+namespace threadscheduling
 {
 #if WINDOWS || LINUX
     /// <summary>
